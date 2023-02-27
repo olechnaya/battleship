@@ -7,9 +7,10 @@ class Ship:
         self.length = length
         self.lives = length
 
-    #@property
+    @property
     def ship_points(self):
-        shipPoints = []
+        list_points = []
+
         for i in range(self.length):
             cur_x = self.bow[0]
             cur_y = self.bow[1]
@@ -19,16 +20,20 @@ class Ship:
             elif self.position == "горизонтально":
                 cur_y += i
 
-            shipPoints.append(Point(cur_x, cur_y))
+            list_points.append(Point(cur_x, cur_y))
+
+        # НЕ ЗАБЫВАЙ ГРЕБАНЫЙ ВОЗВРАТ РЕЗУЛЬТАТА ИЗ МЕТОДА
+        return list_points
 
     def is_hit(self, shot):
-        print(self.ship_points)
-        return #shot in self.ship_points
-
+        # if shot in self.ship_points:
+        #     return print("HIT")
+        # else:
+        #     return print("Мазила")
+        return shot in self.ship_points
 
 ship1 = Ship((1, 1), "вертикально", 4)
 
-ship1.ship_points()
-
-ship1.is_hit(Point(1, 1))
+ship1.ship_points
+print(ship1.is_hit(Point(5, 1)))
 
