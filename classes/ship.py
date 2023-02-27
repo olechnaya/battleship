@@ -1,8 +1,8 @@
 from point import Point
 
 class Ship:
-    def __init__(self, bow, position, length):
-        self.bow = bow
+    def __init__(self, stem, position, length):
+        self.stem = stem # нос судна
         self.position = position
         self.length = length
         self.lives = length
@@ -12,8 +12,8 @@ class Ship:
         list_points = []
 
         for i in range(self.length):
-            cur_x = self.bow[0]
-            cur_y = self.bow[1]
+            cur_x = self.stem[0]
+            cur_y = self.stem[1]
 
             if self.position == "вертикально":
                 cur_x += i
