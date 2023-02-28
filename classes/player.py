@@ -32,3 +32,4 @@ class AI(Player):
 class User(Player):
 
     def ask(self):
+        pass
