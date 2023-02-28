@@ -12,7 +12,7 @@ class Grid:
 
         self.count_hits = []
 
-        self.grid = ["□" * size for _ in range(size)]
+        self.grid = [["□"] * size for _ in range(size)]
 
         self.occupied_points = []
         self.ships = []
@@ -64,11 +64,12 @@ class Grid:
             for dx, dy in near:
                 cursor = Point(d.x + dx, d.y + dy)
                 print(cursor.x, cursor.y)
-                self.grid[cursor.x][cursor.y] = "+"
+                self.grid[cursor.x][cursor.y] = "++"
                 # if not (self.out(cursor)) and cursor not in self.occupied_points:
                 #     if verb:
                 #         self.field[cursor.x][cursor.y] = "."
                 #     self.busy.append(cursor)
+
 b = Grid()
 b.contour(Ship((2, 2), "вертикально", 1))
 print(b)
