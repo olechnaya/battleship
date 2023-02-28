@@ -1,4 +1,6 @@
-# description
+"""
+
+"""
 class GameExceptions(Exception):
     pass
 
