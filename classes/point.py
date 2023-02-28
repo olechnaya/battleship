@@ -16,4 +16,3 @@ class Point:
     """
     def __repr__(self):
         return f"Point{self.x, self.y}"
-

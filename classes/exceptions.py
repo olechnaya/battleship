@@ -12,4 +12,5 @@ class PointIsUsedException(GameExceptions):
     def __str__(self):
         return "Вы уже стреляли в эту клетку. Попробуйте ещё."
 class ShipWrongPlacement(GameExceptions):
-    pass
+    def __str__(self):
+        return "Корабль размещен некорректно. Попробуйте переставить"

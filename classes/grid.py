@@ -54,22 +54,78 @@ class Grid:
       5 | □ |    □    |    □   |    □    | □ | □ |
       6 | □ |    □    |    □   |    □    | □ | □ |
         """
+        
         near = [
             (-1, -1), (-1, 0), (-1, 1),
             (0, -1), (0, 0), (0, 1),
             (1, -1), (1, 0), (1, 1)
         ]
 
-        for d in ship.points:
-            for dx, dy in near:
-                cursor = Point(d.x + dx, d.y + dy)
-                print(cursor.x, cursor.y)
-                self.grid[cursor.x][cursor.y] = "++"
-                # if not (self.out(cursor)) and cursor not in self.occupied_points:
-                #     if verb:
-                #         self.field[cursor.x][cursor.y] = "."
-                #     self.busy.append(cursor)
+        for point in ship.points:
+            for point_x, point_y in near:
+                cursor = Point(point.x + point_x, point.y + point_y)
+                #self.grid[cursor.x][cursor.y] = "+"
+                # если точка в пределах поля и не в списке занятых точек
+                if not (self.out_of_grid(cursor)) and cursor not in self.occupied_points:
+
+                    # verb - нужно ли ставить точки вокруг суден или нет. Во время расстановки False. Во время игры True.
+                    if verb:
+                        # заменяем символ свободной ячейки на занятую
+                        self.grid[cursor.x][cursor.y] = "."
+                    # добавляем в список занятых точек
+                    self.occupied_points.append(cursor)
+
+    """
+    Метод add_ship
+    """
+    def add_ship(self, ship):
+        for point in ship.points:
+            # проверка, что каждая точка судна не выходит за границы и не занята
+            if self.out_of_grid(point) or point in self.occupied_points:
+                raise ShipWrongPlacement()
+        # проходим по координатам поля, где стоит судно
+        for point in ship.points:
+            # заменяем символ свободной ячейки на занятую
+            self.grid[point.x][point.y] = "■"
+            # добавляем точку в список занятых (точки судна + соседние с ним точки)
+            self.occupied_points.append(point)
+
+        self.ships.append(ship)
+        self.contour(ship)
+    """
+    Метод shot используется для моделирования хода игрока (выстрела)
+    """
+    def shot(self, point):
+        # обработка ошибки выстрела за пределы игрового поля
+        if self.out_of_grid(point):
+            raise OutOfGridExceptions()
+        # обработка ошибки выстрела по уже отстреленной ячейке
+        if point in self.occupied_points:
+            raise PointIsUsedException()
+
+        self.occupied_points.append(point)
+
+        for ship in self.ships:
+            if ship.is_hit(point):
+                ship.lives -= 1
+                self.grid[point.x][point.y] = "x"
+                if ship.lives == 0:
+                    self.count += 1
+                    self.contour(ship, verb=True)
+                    print("Корабль уничтожен!")
+                    return False
+                else:
+                    print("Корабль ранен!")
+                    return True
+
+        self.grid[point.x][point.y] = "."
+        print("Мимо!")
+        return False
+
+    def begin(self):
+        self.occupied_points = []
 
 b = Grid()
-b.contour(Ship((2, 2), "вертикально", 1))
+b.add_ship(Ship(Point(2, 2), "горизонтально", 3))
+b.add_ship(Ship(Point(1, 1), "горизонтально", 1))
 print(b)

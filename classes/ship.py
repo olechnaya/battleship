@@ -18,8 +18,8 @@ class Ship:
 
         for i in range(self.length):
             # координаты носа судна
-            coord_x = self.stem_point[0]
-            coord_y = self.stem_point[1]
+            coord_x = self.stem_point.x
+            coord_y = self.stem_point.y
 
             if self.position == "вертикально":
                 coord_x += i
