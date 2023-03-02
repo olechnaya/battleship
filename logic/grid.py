@@ -1,6 +1,5 @@
-from point import Point
-from exceptions import *
-from ship import Ship
+from .point import Point
+from .exceptions import *
 """
 Класс Grid отвечает за модель игрового поля
 """

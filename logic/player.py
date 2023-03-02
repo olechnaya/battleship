@@ -1,7 +1,7 @@
 from random import randint
 
-from exceptions import *
-from point import Point
+from .exceptions import *
+from .point import Point
 
 """
 Класс Player отвечает за модель игрока
@@ -48,7 +48,7 @@ class User(Player):
                 print("Введите числа")
                 continue
 
-            x, y = int(coords[0]), int(coords[1])
+            x, y = int(coords[0]) - 1, int(coords[1]) - 1
             print(Point(x, y))
 
             return Point(x, y)

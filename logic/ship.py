@@ -1,4 +1,4 @@
-from point import Point
+from .point import Point
 """
 Класс Ship отвечает за модель судна (корабля) в игре
 """
@@ -28,7 +28,7 @@ class Ship:
 
             list_points.append(Point(coord_x, coord_y))
 
-        # НЕ ЗАБЫВАЙ ГРЕБАНЫЙ ВОЗВРАТ РЕЗУЛЬТАТА ИЗ МЕТОДА
+        # НЕ ЗАБЫВАЙ ВОЗВРАТ РЕЗУЛЬТАТА ИЗ МЕТОДА
         return list_points
     """
     Метод is_hit используется для определения попадания в судно

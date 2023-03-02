@@ -1,15 +1,14 @@
 from random import randint, choice
 
-from point import Point
-from exceptions import *
-from ship import Ship
-from grid import Grid
-from player import User, AI
+from .point import Point
+from .exceptions import *
+from .ship import Ship
+from .grid import Grid
+from .player import User, AI
 
 """
 Класс Game
 """
-
 
 class Game:
     def __init__(self, size = 6):
@@ -97,6 +96,3 @@ class Game:
     def start(self):
         self.greet()
         self.loop()
-
-g = Game()
-g.start()
