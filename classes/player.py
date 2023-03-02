@@ -2,11 +2,14 @@ from random import randint
 
 from exceptions import *
 from point import Point
+
 """
 Класс Player отвечает за модель игрока
 """
+
+
 class Player:
-    def __init__(self, grid, opponent):
+    def __init__(self, grid=True, opponent=True):
         self.grid = grid
         self.opponent = opponent
 
@@ -23,13 +26,29 @@ class Player:
             except GameExceptions as e:
                 print(e)
 
+
 class AI(Player):
     def ask(self):
-        point = Point(randint(0,5),randint(0,5))
+        point = Point(randint(0, 5), randint(0, 5))
         print(f"Ход компьютера: {point.x + 1} {point.y + 1}")
         return point
+
 
 class User(Player):
 
     def ask(self):
-        pass
+        while True:
+            coords = input("Ваш ход...").split()
+
+            if len(coords) != 2:
+                print("Введите две координаты")
+                continue
+
+            if not (coords[0].isdigit()) or not (coords[1].isdigit()):
+                print("Введите числа")
+                continue
+
+            x, y = int(coords[0]), int(coords[1])
+            print(Point(x, y))
+
+            return Point(x, y)

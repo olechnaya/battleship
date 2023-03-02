@@ -1,5 +1,8 @@
 """
-
+    GameExceptions:
+        - OutOfGridExceptions
+        - PointIsUsedException
+        - ShipWrongPlacement
 """
 class GameExceptions(Exception):
     pass
