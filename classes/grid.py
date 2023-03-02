@@ -6,22 +6,23 @@ from ship import Ship
 """
 
 class Grid:
-    def __init__(self, is_hid=False, size=6):
-        self.is_hid = is_hid
+    def __init__(self, is_hidden=False, size=6):
+        self.is_hidden = is_hidden
         self.size = size
 
-        self.count_hits = []
+        self.count_hits = 0
 
         self.grid = [["□"] * size for _ in range(size)]
 
         self.occupied_points = []
         self.ships = []
 
+    # Переписываем метод для отрисовки игрового поля
     def __str__(self):
         drawing_grid = ""
 
         # именуем колонки
-        drawing_grid += "  | 1 | 2 | 3 | 4 | 5 | 6 |"  # TODO: переделать на буквы
+        drawing_grid += "  | 1 | 2 | 3 | 4 | 5 | 6 |"
 
         # enumerate возвращает кортеж из двух значений (индекс, значение)
         # enumerate(_последовательность_, start = _начальное значение индекса(по умолчанию 0)_)
@@ -30,7 +31,7 @@ class Grid:
         return drawing_grid
 
         # скрывать ли корабли на доске
-        if self.hid:
+        if self.is_hidden:
             drawing_grid = drawing_grid.replace("■", "□")
             return drawing_grid
     """
@@ -110,7 +111,7 @@ class Grid:
                 ship.lives -= 1
                 self.grid[point.x][point.y] = "x"
                 if ship.lives == 0:
-                    self.count += 1
+                    self.count_hits += 1
                     self.contour(ship, verb=True)
                     print("Корабль уничтожен!")
                     return False
@@ -125,7 +126,6 @@ class Grid:
     def begin(self):
         self.occupied_points = []
 
-b = Grid()
-b.add_ship(Ship(Point(2, 2), "горизонтально", 3))
-b.add_ship(Ship(Point(1, 1), "горизонтально", 1))
-print(b)
+    @property
+    def fleet_size(self):
+        return self.count_hits == len(self.ships)

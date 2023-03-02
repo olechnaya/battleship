@@ -34,15 +34,4 @@ class Ship:
     Метод is_hit используется для определения попадания в судно
     """
     def is_hit(self, shot):
-        # if shot in self.points:
-        #     return print("HIT")
-        # else:
-        #     return print("Мазила")
         return shot in self.points
-
-#
-# ship1 = Ship((1, 1), "вертикально", 4)
-#
-# ship1.points
-# print(ship1.is_hit(Point(5, 1)))
-#
